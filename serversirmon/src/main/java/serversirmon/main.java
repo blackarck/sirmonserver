@@ -42,6 +42,7 @@ public class main{
 */      postPayload.stream().toString();
         for(sirServer i : postPayload){
                      System.out.println("Calling main processing api " + i.server_dns);
+                     i.insInDB();
         }
 
          return("Value from server " +postPayload);
