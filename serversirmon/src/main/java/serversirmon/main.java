@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class main{ 
         //implements ErrorController{
     sirServer s;
-    
-    
+
     /*
     @RequestMapping("/error")
     public String handleError() {

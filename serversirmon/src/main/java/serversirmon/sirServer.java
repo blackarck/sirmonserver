@@ -26,7 +26,9 @@ public class sirServer {
         Date date = new Date();
         SimpleDateFormat ft1 = new SimpleDateFormat("yyyy-MM-dd");
         String dt = ft1.format(date);
+        System.out.println("Date is dt " + dt);
         lastupddttm = date;
+
     }//end of constructor
 
     //this will just store data in database
@@ -48,7 +50,21 @@ public class sirServer {
             java.sql.Date startDate = new java.sql.Date(lastupddttm.getTime());
             preparedStmt.setDate(10, startDate);
             preparedStmt.execute();
-            System.out.println("Insert successful for:"+server_dns +" client:"+ clientid);
+            System.out.println("Insert successful for:" + server_dns + " client:" + clientid);
+
+            // check if server status is in error
+            if (server_status == "Error") {
+                jmailUtil j = new jmailUtil();
+                j.sendMail("blackarck@gmail.com", "PS server " + server_dns + " client " + clientid);
+            }
+
+            //deleting data older than 2 months
+            Date date = new Date();
+            SimpleDateFormat ft1 = new SimpleDateFormat("yyyy-MM-dd");
+            String dt = ft1.format(date);
+            query = "delete from `server_log` where `lastupddttm` < DATE_ADD('" + dt + "',INTERVAL -2 MONTH)";
+            preparedStmt = conn.prepareStatement(query);
+            preparedStmt.execute();
             conn.close();
 
         } catch (Exception e) {
