@@ -3,6 +3,8 @@ package serversirmon;
 import java.util.List;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 
-public class main{ 
+public class main extends WebSecurityConfigurerAdapter{ 
         //implements ErrorController{
     sirServer s;
 
@@ -23,15 +25,21 @@ public class main{
         return "error";
     }
     */
+     @Override
+    protected void configure(HttpSecurity security) throws Exception
+    {
+     security.httpBasic().disable();
+     security.csrf().disable();
+    }
     
-     @CrossOrigin(origins = "http://localhost:4200")
+     @CrossOrigin(origins = "http://localhost:8444")
     @RequestMapping(path = "/lottoget")
     String home() {
         return "Hello World! IV";
     }
     
     
-    
+    // @CrossOrigin(origins = "http://localhost:8444")
     @RequestMapping(path = "/sirmonprcs",method = RequestMethod.POST )
      public String sirmonprcs (@RequestBody List<sirServer> postPayload){
         /*dc6
