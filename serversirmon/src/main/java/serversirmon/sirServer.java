@@ -1,5 +1,6 @@
 package serversirmon;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,6 +19,7 @@ public class sirServer {
     public String server_ip;
     public int server_port;
     public String clientid;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date lastupddttm;
     //nothing more to add here 
 
@@ -28,7 +30,7 @@ public class sirServer {
         String dt = ft1.format(date);
         System.out.println("Date is dt " + dt);
         lastupddttm = date;
-
+       
     }//end of constructor
 
     //this will just store data in database

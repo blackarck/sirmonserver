@@ -1,6 +1,7 @@
 package serversirmon;
 
-import java.util.List;
+import com.google.gson.Gson;
+import java.util.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,17 +41,17 @@ public class main extends WebSecurityConfigurerAdapter{
     
     
     // @CrossOrigin(origins = "http://localhost:8444")
-    @RequestMapping(path = "/sirmonprcs",method = RequestMethod.POST )
-     public String sirmonprcs (@RequestBody List<sirServer> postPayload){
-        /*dc6
-         for (sirServer sirarr : sirs){
-             System.out.println("Sirarray value is " + sirarr.server_dns);
-         }
-*/      postPayload.stream().toString();
-        for(sirServer i : postPayload){
+    @RequestMapping(path = "/sirmonprcs",method = RequestMethod.POST , headers = "Accept=application/json")
+     //public String sirmonprcs (@RequestBody List<sirServer>  postPayload){
+         public String sirmonprcs (@RequestBody String  postPayload){
+          System.out.println("I am inside request mapping method "+ postPayload);
+          Gson g = new Gson();
+          sirServer i = g.fromJson(postPayload, sirServer.class);
+     //postPayload.stream().toString();
+        //for(sirServer i : postPayload){
                      System.out.println("Calling main processing api " + i.server_dns);
                      i.insInDB();
-        }
+        //}
 
          return("Value from server " +postPayload);
      }
