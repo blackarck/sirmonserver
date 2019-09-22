@@ -1,7 +1,6 @@
 package serversirmon;
 
 import com.google.gson.Gson;
-import java.util.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,12 +43,12 @@ public class main extends WebSecurityConfigurerAdapter{
     @RequestMapping(path = "/sirmonprcs",method = RequestMethod.POST , headers = "Accept=application/json")
      //public String sirmonprcs (@RequestBody List<sirServer>  postPayload){
          public String sirmonprcs (@RequestBody String  postPayload){
-          System.out.println("I am inside request mapping method "+ postPayload);
+          //System.out.println("I am inside request mapping method "+ postPayload);
           Gson g = new Gson();
           sirServer i = g.fromJson(postPayload, sirServer.class);
      //postPayload.stream().toString();
         //for(sirServer i : postPayload){
-                     System.out.println("Calling main processing api " + i.server_dns);
+                    // System.out.println("Calling main processing api " + i.server_dns);
                      i.insInDB();
         //}
 

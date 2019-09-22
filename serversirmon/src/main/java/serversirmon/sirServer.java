@@ -24,11 +24,11 @@ public class sirServer {
     //nothing more to add here 
 
     public sirServer() {
-        System.out.println("Constructor for Sir server");
+        //System.out.println("Constructor for Sir server");
         Date date = new Date();
         SimpleDateFormat ft1 = new SimpleDateFormat("yyyy-MM-dd");
         String dt = ft1.format(date);
-        System.out.println("Date is dt " + dt);
+        //System.out.println("Date is dt " + dt);
         lastupddttm = date;
        
     }//end of constructor
@@ -55,9 +55,10 @@ public class sirServer {
             System.out.println("Insert successful for:" + server_dns + " client:" + clientid);
 
             // check if server status is in error
-            if (server_status == "Error") {
+            if (server_status.equals("Error")) {
                 jmailUtil j = new jmailUtil();
-                j.sendMail("blackarck@gmail.com", "PS server " + server_dns + " client " + clientid);
+                System.out.println("Error for server " +  server_dns + " " + server_name + " sending email.");
+                j.sendMail("blackarck@gmail.com", "PS server " + server_dns + " " + server_name + " client " + clientid);
             }
 
             //deleting data older than 2 months
