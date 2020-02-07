@@ -55,6 +55,14 @@ public class main extends WebSecurityConfigurerAdapter{
          return("Value from server " +postPayload);
      }
      
+         
+          @RequestMapping(path = "/sirmonenvs",method = RequestMethod.POST , headers = "Accept=application/json")
+          public String sirmonenv(@RequestBody String  postPayload){
+          Gson g = new Gson();
+          envclass e = g.fromJson(postPayload, envclass.class);
+           e.insInDB();
+          return("Value from server " +postPayload);
+     }
      
    /* @Override
     public String getErrorPath() {
